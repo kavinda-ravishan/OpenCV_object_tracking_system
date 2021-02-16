@@ -6,3 +6,4 @@ Unzip and add opencv-4.5.1, <a href="https://1drv.ms/u/s!Ahiuj6NEGPmRqA72ql14VPs
 <p><a href="https://www.youtube.com/embed/bSeFrPrqZ2A">Tutorial: Real-Time Object Tracking Using OpenCV</a></p>
 
 ![](imgs/1.png)
+![](imgs/2.gif)
