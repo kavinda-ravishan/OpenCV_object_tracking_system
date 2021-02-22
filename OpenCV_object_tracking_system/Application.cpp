@@ -372,7 +372,7 @@ void displayInfor() {
 }
 //-------------------------------END-----------------------------------------//
 
-int main(int argc, char* argv[]) {
+int main(int argc, char** argv) {
 
 	//-----------------------------Arduino---------------------------------------//
 	bool inforP = false;//show information
@@ -388,7 +388,14 @@ int main(int argc, char* argv[]) {
 	char up[len] = { '0','0','0','0','u','\n' };
 	char down[len] = { '0','0','0','0','p','\n' };
 
-	Serial Arduino(L"COM3");
+	//Convert char array to LPWSTR
+	const char* port = argv[1];
+	size_t size = strlen(port) + 1;
+	LPWSTR portName = new wchar_t[size];
+	size_t outSize;
+	mbstowcs_s(&outSize, portName, size, port, size - 1);
+
+	Serial Arduino(portName);
 
 	if (Arduino.IsConnected()) cout << "- Arduino successfully connected - \n" << endl;
 
@@ -414,8 +421,10 @@ int main(int argc, char* argv[]) {
 	int x = 0, y = 0;
 	//video capture object to acquire webcam feed
 	VideoCapture capture;
+	//Arg 2 camera number
+	int cam = atoi(argv[2]);
 	//open capture object at location zero (default location for webcam)
-	capture.open(0);
+	capture.open(cam);
 	//set height and width of capture frame
 	capture.set(CAP_PROP_FRAME_WIDTH, FRAME_WIDTH);
 	capture.set(CAP_PROP_FRAME_HEIGHT, FRAME_HEIGHT);
